@@ -1,0 +1,180 @@
+{
+  "info": {
+    "name": "Datalogger Server",
+    "_postman_id": "7b0c1a7e-60f3-4c3f-9b4a-8b8c7200d111",
+    "description": "Collection to test datalogger CRUD and sync APIs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Device (client provides :deviceId)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/devices/{{deviceId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "devices",
+            "{{deviceId}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"deviceName\": \"DL-001\",\n  \"stationName\": \"Station-A\",\n  \"tokenId\": \"token-123\",\n  \"rsaPublicKey\": \"-----BEGIN PUBLIC KEY-----...\",\n  \"payloadForward\": {\n    \"temperature\": 25.5,\n    \"humidity\": 60\n  },\n  \"remarks\": {\n    \"remark_code\": \"OK\"\n  }\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Devices",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/devices",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "devices"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Device Info",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/devices/{{deviceId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "devices",
+            "{{deviceId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Device",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/devices/{{deviceId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "devices",
+            "{{deviceId}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"stationName\": \"Station-B\",\n  \"payloadForward\": {\n    \"temperature\": 26.3,\n    \"pressure\": 1012\n  },\n  \"remarks\": {\n    \"remark_code\": \"WARN\",\n    \"note\": \"Battery low\"\n  }\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Sync Device (set isSynced TRUE, log timestamp)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/devices/{{deviceId}}/sync",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "devices",
+            "{{deviceId}}",
+            "sync"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"payload\": {\n    \"temperature\": 27.1,\n    \"humidity\": 55\n  }\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Unsync Device (set isSynced FALSE)",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:3000/devices/{{deviceId}}/unsync",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "devices",
+            "{{deviceId}}",
+            "unsync"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Device",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:3000/devices/{{deviceId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "devices",
+            "{{deviceId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "deviceId",
+      "value": "REPLACE_WITH_CREATED_DEVICE_ID"
+    }
+  ]
+}
